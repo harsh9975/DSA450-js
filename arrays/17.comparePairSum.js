@@ -24,11 +24,10 @@ function countPairsOptimal(arr, n, k) {
     const required = k - arr[i];
 
     if (freqMap.has(required)) {
-      count += freqMap.get(required); // Increase the count by the frequency of the required value
+      count += freqMap.get(required);
     }
 
-    freqMap.set(arr[i], (freqMap.get(arr[i]) || 0) + 1); // Update the frequency of the current value
+    freqMap.set(arr[i], (freqMap.get(arr[i]) || 0) + 1);
   }
-
   return count;
 }
