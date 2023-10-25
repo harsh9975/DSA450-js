@@ -36,7 +36,7 @@ function fill(grid, n, m) {
     }
 
     // second column
-    if (vis[i][m - 1] == 0 && grid[i][m - 1] == "0") {
+    if (vis[i][m - 1] == 0 && grid[i][m - 1] == "O") {
       dfs(i, m - 1, vis, grid, direction);
     }
   }
@@ -53,16 +53,16 @@ function fill(grid, n, m) {
 
 function dfs(row, col, vis, grid, direction) {
   vis[row][col] = 1;
-  let n = grid.length;
-  let m = grid[0].length;
+  let nRow = grid.length;
+  let mCol = grid[0].length;
   for (let d of direction) {
-    let r = n + d[0];
-    let c = m + d[1];
+    let r = row + d[0];
+    let c = col + d[1];
     if (
       r >= 0 &&
-      r < n &&
+      r < nRow &&
       c >= 0 &&
-      c < n &&
+      c < mCol &&
       vis[r][c] == 0 &&
       grid[r][c] == "O"
     ) {
