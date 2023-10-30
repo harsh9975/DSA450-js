@@ -9,8 +9,9 @@ list.add(6);
 list.add(4);
 list.add(7);
 list.print();
-sortLinkedList(list.head);
+list.head = sortLinkedList(list.head);
 list.print();
+
 function sortLinkedList(head) {
   if (head == null || head.next == null) {
     return head;
