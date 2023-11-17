@@ -75,3 +75,36 @@ e.connect(c);
 e.connect(f);
 const res = graph.topologicalSort();
 console.log("res: ", res);
+
+//gfg toposort bfs
+class Solution {
+  //Function to return list containing vertices in Topological order.
+  topoSort(V, adj) {
+    // code here
+    let indegree = new Array(V).fill(0);
+    for (let i = 0; i < V; i++) {
+      for (let _adj of adj[i]) {
+        indegree[_adj]++;
+      }
+    }
+    let queue = [];
+
+    for (let i = 0; i < V; i++) {
+      if (indegree[i] == 0) {
+        queue.push(i);
+      }
+    }
+    let topo = [];
+    while (queue.length > 0) {
+      let node = queue.shift();
+      topo.push(node);
+      for (let _adj of adj[node]) {
+        indegree[_adj]--;
+        if (indegree[_adj] == 0) {
+          queue.push(_adj);
+        }
+      }
+    }
+    return topo;
+  }
+}

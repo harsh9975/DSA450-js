@@ -71,3 +71,38 @@ node5.connect(node2);
 
 let ans = graph.isCylicBFS(node1);
 console.log("ans", ans);
+
+class Solution {
+  // Function to detect cycle in an undirected graph.
+  isCycle(V, adj) {
+    // code here
+    let vis = new Array(V).fill(false);
+    for (let i = 0; i < V; i++) {
+      if (!vis[i]) {
+        if (this.detectCycleBFS(adj, i, vis)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  detectCycleBFS(adj, start, vis) {
+    let queue = [{ node: start, parent: null }];
+
+    while (queue.length) {
+      const { node, parent } = queue.shift();
+      vis[node] = true;
+      for (const adjacency of adj[node]) {
+        if (!vis[adjacency]) {
+          queue.push({ node: adjacency, parent: node });
+          vis[adjacency] = true;
+        } else if (adjacency != parent) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+}

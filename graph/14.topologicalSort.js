@@ -34,6 +34,7 @@ class Graph {
     }
     console.log(topOrdering.reverse());
   }
+
   depthFirstSearch(start, visited, topOrdering) {
     if (visited.has(start)) return;
     visited.add(start);
@@ -60,3 +61,36 @@ d.connect(f);
 e.connect(c);
 e.connect(f);
 graph.topologicalSort();
+
+//gfg practice
+class Solution {
+  //Function to return list containing vertices in Topological order.
+  topoSort(V, adj) {
+    // code here
+    let vis = new Array(V).fill(false);
+    let stack = [];
+    for (let i = 0; i < V; i++) {
+      if (!vis[i]) {
+        this.dfs(i, stack, vis, adj);
+      }
+    }
+    let ans = new Array(V);
+    let j = 0;
+    while (stack.length > 0) {
+      ans[j++] = stack.pop();
+    }
+    return ans;
+  }
+
+  dfs(node, stack, vis, adj) {
+    // Push node onto stack before exploring neighbors
+    vis[node] = true;
+
+    for (let _adj of adj[node]) {
+      if (!vis[_adj]) {
+        this.dfs(_adj, stack, vis, adj);
+      }
+    }
+    stack.push(node);
+  }
+}

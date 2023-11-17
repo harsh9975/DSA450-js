@@ -75,3 +75,31 @@ node8.connect(node4);
 node8.connect(node7);
 
 graph.depthFirstSearch(node1);
+
+class Solution {
+  // Function to detect cycle in an undirected graph.
+  isCycle(V, adj) {
+    // code here
+    let vis = new Array(V).fill(false);
+    for (let i = 0; i < V; i++) {
+      if (!vis[i]) {
+        if (this.dfs(adj, i, -1, vis)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  dfs(adj, node, parent, vis) {
+    vis[node] = true;
+    for (let adjacency of adj[node]) {
+      if (adjacency == parent) continue;
+      if (vis[adjacency]) return true;
+      if (this.dfs(adj, adjacency, node, vis)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}

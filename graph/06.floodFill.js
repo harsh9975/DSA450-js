@@ -43,3 +43,38 @@ function dfs(image, row, col, color, direction, ans, current) {
     dfs(image, r, c, color, direction, ans, current);
   }
 }
+
+function floodFillBFS(arr, n, m, sr, sc, newColor) {
+  let current = arr[sr][sc];
+  if (current == newColor) {
+    return arr;
+  }
+
+  let ans = [...arr];
+  let queue = [];
+  let direction = [
+    [-1, 0],
+    [1, 0],
+    [0, 1],
+    [0, -1],
+  ];
+
+  queue.push([sr, sc]);
+  ans[sr][sc] = newColor;
+
+  while (queue.length > 0) {
+    let [row, col] = queue.shift();
+
+    for (let d of direction) {
+      let r = row + d[0];
+      let c = col + d[1];
+
+      if (r >= 0 && c >= 0 && r < n && c < m && ans[r][c] === current) {
+        queue.push([r, c]);
+        ans[r][c] = newColor;
+      }
+    }
+  }
+
+  return ans;
+}
