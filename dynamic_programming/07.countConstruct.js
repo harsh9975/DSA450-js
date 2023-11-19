@@ -15,3 +15,16 @@ const countConstruct = (target, wordBank, memo = {}) => {
   memo[target] = totalCount;
   return totalCount;
 };
+
+const countConstructTab = (target, wordBank) => {
+  const dp = new Array(target.length + 1).fill(null);
+  dp[0] = 1;
+  for (let i = 0; i < target.length; i++) {
+    for (let word of wordBank) {
+      if (target.slice(i, i + word.length) == word) {
+        dp[i + word.length] += dp[i];
+      }
+    }
+  }
+  return dp[target.length];
+};

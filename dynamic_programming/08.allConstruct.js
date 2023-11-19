@@ -16,3 +16,19 @@ const allContruct = (target, wordBank, memo = {}) => {
 };
 
 console.log(allContruct("purple", ["purp", "p", "ur", "le", "purpl"]));
+
+const allContructTab = (target, wordBank) => {
+  const dp = new Array(target.length + 1).fill(null).map(() => []);
+  dp[0] = [[]];
+  for (let i = 0; i <= target.length; i++) {
+    for (let word of wordBank) {
+      if (target.slice(i, i + word.length) == word) {
+        const newCombination = dp[i].map((item) => [...item, word]);
+        dp[i + word.length].push(...newCombination);
+      }
+    }
+  }
+  return dp[target.length];
+};
+
+console.log(allContructTab("purple", ["purp", "p", "ur", "le", "purpl"]));

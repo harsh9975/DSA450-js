@@ -15,3 +15,19 @@ const canConstruct = (target, wordBank, memo = {}) => {
   memo[target] = false;
   return false;
 };
+
+//tabulation
+const canConstructTab = (target, wordBank) => {
+  const dp = new Array(target.length + 1).fill(false);
+  dp[0] = true;
+  for (let i = 0; i <= target.length; i++) {
+    if (dp[i] == true) {
+      for (let word of wordBank) {
+        if (target.slice(i, i + word.length) == word) {
+          dp[i + word.length] = true;
+        }
+      }
+    }
+  }
+  return dp[target.length];
+};
