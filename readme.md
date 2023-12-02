@@ -93,7 +93,3 @@ Backtracking is a technique for solving problems by trying out different possibi
 ### Divide and Conquer
 
 Divide and conquer involves breaking a problem into smaller subproblems, solving them independently, and combining their solutions to solve the original problem.
-
-## Usage
-
-Each data structure and algorithm is implemented in JavaScript and accompanied by examples and explanations. Clone the repository and explore the code to enhance your understanding of these concepts.
