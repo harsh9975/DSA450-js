@@ -21,9 +21,10 @@ c.left = f;
 
 const breadthFirstSearch = (root) => {
   const queue = [root];
+  let ans = [];
   while (queue.length > 0) {
     let curr = queue.shift();
-    console.log(curr.value);
+    ans.push(curr.value);
     if (curr.left) {
       queue.push(curr.left);
     }
@@ -31,8 +32,9 @@ const breadthFirstSearch = (root) => {
       queue.push(curr.right);
     }
   }
+  return console.log("bst: ", ans);
 };
-// breadthFirstSearch(a);
+breadthFirstSearch(a);
 
 // const depthFirstSearch = (root) => {
 //   const stack = [root];
@@ -49,14 +51,17 @@ const breadthFirstSearch = (root) => {
 //   }
 // };
 
-const depthFirstSearch = (root) => {
+const depthFirstSearch = (root, ans) => {
   if (root == null) return;
-  console.log(root.value);
-  depthFirstSearch(root.left);
-  depthFirstSearch(root.right);
+  // console.log(root.value);
+  ans.push(root.value);
+  depthFirstSearch(root.left, ans);
+  depthFirstSearch(root.right, ans);
 };
 
-depthFirstSearch(a);
+let ans = [];
+depthFirstSearch(a, ans);
+console.log("dfs: ", ans);
 
 //preorder traversal
 const preorder = (root) => {
