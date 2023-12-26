@@ -30,9 +30,11 @@ let grid = [
 ];
 let src = 0;
 
-let ans = disktrasAlgo(grid, src);
-console.log("ans", ans);
-
+// let ans = disktrasAlgo(grid, src);
+let ans2 = dijkstrasAlgoStriver(grid, src);
+// console.log("ans", ans);
+// console.log("ans2", ans2);
+console.log("working");
 function disktrasAlgo(grid, src) {
   let n = grid.length;
   let distance = new Array(n).fill(Infinity);
@@ -63,4 +65,30 @@ function getVertex(distance, visited) {
     }
   }
   return closestVertex;
+}
+
+function dijkstrasAlgoStriver(grid, src) {
+  const n = grid.length;
+  const pair = new Set();
+  const dist = new Array(n).fill(Infinity);
+
+  pair.add({ vertex: src, distance: 0 });
+  dist[src] = 0;
+
+  while (pair.size > 0) {
+    const { vertex, distance } = pair.values().next().value;
+    pair.delete({ vertex, distance });
+
+    for (const [neighbour, weight] of grid[vertex]) {
+      const newDist = distance + weight;
+
+      // If the new distance is smaller, update the distance and add to the set
+      if (newDist < dist[neighbour]) {
+        pair.delete({ vertex: neighbour, distance: dist[neighbour] }); // Remove the old distance from set
+        dist[neighbour] = newDist;
+        pair.add({ vertex: neighbour, distance: newDist }); // Add updated distance to set
+      }
+    }
+  }
+  return dist;
 }

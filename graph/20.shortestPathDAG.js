@@ -1,53 +1,66 @@
-const n = 6;
-const edges = [
-  [0, 1, 2],
-  [0, 4, 1],
-  [4, 5, 4],
-  [4, 2, 2],
-  [1, 2, 3],
-  [2, 3, 6],
-  [5, 3, 1],
-];
+console.log(
+  shortestPath(4, 2, [
+    [0, 1, 2],
+    [0, 2, 1],
+  ])
+); // [0, 2, 1, -1]
+console.log(
+  shortestPath(6, 7, [
+    [0, 1, 2],
+    [0, 4, 1],
+    [4, 5, 4],
+    [4, 2, 2],
+    [1, 2, 3],
+    [2, 3, 6],
+    [5, 3, 1],
+  ])
+); // [0, 2, 3, 6, 1, 5]
 
-const result = shortestPathInDAG(n, edges);
-console.log(result);
+function shortestPath(n, m, edges) {
+  const adjList = Array.from({ length: n }, () => []);
+  const stack = [];
+  const dist = new Array(n).fill(Infinity);
 
-function shortestPathInDAG(n, edges) {
-  const graph = new Array(n).fill(null).map(() => []);
-  for (let [u, v, weight] of edges) {
-    graph[u].push([v, weight]);
+  for (const [u, v, w] of edges) {
+    adjList[u].push({ node: v, weight: w });
   }
 
-  // Step 1: Topological Sort
-  let topoOrder = [];
-  let visited = new Array(n).fill(false);
-
-  function dfs(node) {
-    visited[node] = true;
-    for (const [adjacency, _] of graph[node]) {
-      if (!visited[adjacency]) {
-        dfs(adjacency);
-      }
-    }
-    topoOrder.push(node);
-  }
+  const visited = new Array(n).fill(false);
 
   for (let i = 0; i < n; i++) {
     if (!visited[i]) {
-      dfs(i);
+      topoSort(i, adjList, visited, stack);
     }
   }
 
-  // Step 2 and 3: Relax edges in topological order
-  const distance = new Array(n).fill(1e9);
-  distance[0] = 0;
-  while (topoOrder.length > 0) {
-    const node = topoOrder.pop();
-    for (const [adjacency, weight] of graph[node]) {
-      if (distance[node] + weight < distance[adjacency]) {
-        distance[adjacency] = distance[node] + weight;
+  dist[0] = 0;
+
+  while (stack.length) {
+    const node = stack.pop();
+    if (dist[node] != Infinity) {
+      for (let neighbour of adjList[node]) {
+        const newDist = dist[node] + neighbour.weight;
+        if (newDist < dist[neighbour.node]) {
+          dist[neighbour.node] = newDist;
+        }
       }
     }
   }
-  return distance;
+
+  for (let i = 0; i < n; i++) {
+    if (dist[i] == Infinity) {
+      dist[i] = -1;
+    }
+  }
+  return dist;
+}
+
+function topoSort(node, adjList, visited, stack) {
+  visited[node] = true;
+  for (let neighbour of adjList[node]) {
+    if (!visited[neighbour.node]) {
+      topoSort(neighbour.node, adjList, visited, stack);
+    }
+  }
+  stack.push(node);
 }

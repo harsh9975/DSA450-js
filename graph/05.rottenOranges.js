@@ -1,5 +1,9 @@
 // https://maideveloper.com/blog/rotting-oranges-coding-challenge
-let grid = [[0, 2]];
+let grid = [
+  [2, 1, 1],
+  [1, 1, 0],
+  [0, 1, 1],
+];
 let ans = orangesRoting(grid);
 console.log("ans: ", ans);
 

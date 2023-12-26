@@ -43,8 +43,8 @@ function dfs(row, col, grid, rows, cols) {
   dfs(row - 1, col, grid, rows, cols);
   dfs(row, col + 1, grid, rows, cols);
   dfs(row, col - 1, grid, rows, cols);
-  //   dfs(row + 1, col + 1, grid, rows, cols);
-  //   dfs(row + 1, col - 1, grid, rows, cols);
-  //   dfs(row - 1, col + 1, grid, rows, cols);
-  //   dfs(row - 1, col - 1, grid, rows, cols);
+  dfs(row + 1, col + 1, grid, rows, cols);
+  dfs(row + 1, col - 1, grid, rows, cols);
+  dfs(row - 1, col + 1, grid, rows, cols);
+  dfs(row - 1, col - 1, grid, rows, cols);
 }
